@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookStore | Home</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+
+      <% if (currentUser && currentUser.role === "admin") { %>
+        <a href="/books/add">Add Book</a>
+      <% } %>
+
+      <% if (currentUser) { %>
+        <span>Welcome, <%= currentUser.name %></span>
+
+        <form action="/logout" method="POST" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to BookStore</h1>
+    <p>Discover amazing books and find your next favorite story.</p>
+
+    <a href="/books" class="btn">Explore Books</a>
+
+    <% if (currentUser && currentUser.role === "admin") { %>
+      <a href="/books/add" class="btn">Add New Book</a>
+    <% } %>
+  </section>
+
+  <!-- Latest Books -->
+  <main class="container">
+    <h2>Latest Books</h2>
+
+    <div class="grid">
+      <% if (books && books.length > 0) { %>
+
+        <% books.forEach(book => { %>
+          <div class="card">
+            <h3><%= book.title %></h3>
+
+            <p>
+              <strong>Author:</strong>
+              <%= book.author %>
+            </p>
+
+            <p>
+              <strong>Category:</strong>
+              <%= book.category %>
+            </p>
+
+            <p>
+              <strong>Price:</strong>
+              ₹<%= book.price %>
+            </p>
+
+            <p>
+              <strong>Stock:</strong>
+              <%= book.stock %>
+            </p>
+
+            <a href="/books/<%= book._id %>" class="btn">
+              View Details
+            </a>
+          </div>
+        <% }) %>
+
+      <% } else { %>
+        <p>No books available yet.</p>
+      <% } %>
+    </div>
+
+    <p style="margin-top: 25px;">
+      <a href="/books" class="btn">View All Books</a>
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <footer style="text-align:center; padding:25px; background:#172554; color:white; margin-top:40px;">
+    <p>© 2026 BookStore. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
+```

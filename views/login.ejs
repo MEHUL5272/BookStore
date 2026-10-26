@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | BookStore</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  
+<nav class="navbar">
+  <a href="/" class="logo">BookStore</a>
+
+  <div>
+    <a href="/">Home</a>
+    <a href="/books">All Books</a>
+
+    <% if (currentUser) { %>
+      <span>Welcome, <%= currentUser.name %></span>
+      <form action="/logout" method="POST" style="display:inline;">
+        <button type="submit">Logout</button>
+      </form>
+    <% } else { %>
+      <a href="/login">Login</a>
+      <a href="/signup">Signup</a>
+    <% } %>
+  </div>
+</nav>
+
+
+  <main class="container">
+    <form action="/login" method="POST" class="book-form">
+      <h1>Login</h1>
+
+      <% if (error) { %>
+        <p style="color:red"><%= error %></p>
+      <% } %>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <button type="submit" class="btn">Login</button>
+      <p>New user? <a href="/signup">Create Account</a></p>
+    </form>
+  </main>
+</body>
+</html>

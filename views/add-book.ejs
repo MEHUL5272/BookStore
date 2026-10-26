@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Book | BookStore</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+  <style>
+    .add-book-container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    }
+
+    .add-book-container h1 {
+      color: #172554;
+      margin-bottom: 10px;
+    }
+
+    .add-book-container .subtitle {
+      color: #64748b;
+      margin-bottom: 25px;
+    }
+
+    .add-book-form label {
+      display: block;
+      margin: 16px 0 8px;
+      font-weight: bold;
+      color: #334155;
+    }
+
+    .add-book-form input,
+    .add-book-form textarea {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    .add-book-form input:focus,
+    .add-book-form textarea:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px #2563eb20;
+    }
+
+    .add-book-form .btn {
+      margin-top: 22px;
+    }
+
+    @media (max-width: 600px) {
+      .add-book-container {
+        margin: 20px 12px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+      <a href="/books/add">Add Book</a>
+    </div>
+  </nav>
+
+  <main class="add-book-container">
+    <h1>Add New Book</h1>
+    <p class="subtitle">Enter the details below to add a book to your store.</p>
+
+    <% if (typeof error !== "undefined" && error) { %>
+      <p style="color:red;"><%= error %></p>
+    <% } %>
+
+    <form action="/books/add" method="POST" class="add-book-form">
+      <label for="title">Book Title</label>
+      <input id="title" type="text" name="title"
+             placeholder="Enter book title" required>
+
+      <label for="author">Author</label>
+      <input id="author" type="text" name="author"
+             placeholder="Enter author name" required>
+
+      <label for="category">Category</label>
+      <input id="category" type="text" name="category"
+             placeholder="e.g. Fiction, Science" required>
+
+      <label for="price">Price (₹)</label>
+      <input id="price" type="number" name="price"
+             min="0" step="0.01" placeholder="Enter price" required>
+
+      <label for="stock">Stock</label>
+      <input id="stock" type="number" name="stock"
+             min="0" step="1" value="0">
+
+      <label for="description">Description</label>
+      <textarea id="description" name="description"
+                rows="4" placeholder="Write a short description"></textarea>
+
+      <button type="submit" class="btn">Add Book</button>
+      <a href="/books" class="btn">Cancel</a>
+    </form>
+  </main>
+
+  <footer style="text-align:center; padding:25px;">
+    © 2026 BookStore. All Rights Reserved.
+  </footer>
+</body>
+</html>

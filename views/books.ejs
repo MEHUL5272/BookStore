@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookStore | All Books</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+
+      <% if (currentUser) { %>
+        <span>Welcome, <%= currentUser.name %></span>
+        <form action="/logout" method="POST" style="display:inline;">
+          <button type="submit">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <!-- Books Page -->
+  <main class="books-page">
+
+    <header class="books-heading">
+      <span class="eyebrow">YOUR NEXT GREAT READ</span>
+      <h1>Explore Our Books</h1>
+      <p>Discover your next favourite story from our collection.</p>
+    </header>
+
+    <!-- Search -->
+    <form action="/books" method="GET" class="book-search">
+      <input
+        type="search"
+        name="search"
+        placeholder="Search by title, author or category..."
+        value="<%= search || '' %>"
+      >
+      <button type="submit" class="search-btn">Search</button>
+      <a href="/books" class="reset-btn">Reset</a>
+    </form>
+
+    <!-- Add Book Button -->
+    <div class="add-book-row">
+      <a href="/books/add" class="add-book-btn">+ Add New Book</a>
+    </div>
+
+    <!-- Book List -->
+    <section class="books-results">
+      <div class="results-heading">
+        <h2><%= search ? "Search Results" : "Our Collection" %></h2>
+        <span><%= books.length %> books found</span>
+      </div>
+
+      <% if (books && books.length > 0) { %>
+        <div class="books-grid">
+          <% books.forEach(book => { %>
+            <article class="book-card">
+
+              <!-- Book Image -->
+              <div class="book-cover">
+                <% if (book.image) { %>
+                  <img
+                    src="<%= book.image %>"
+                    alt="<%= book.title %> cover"
+                    class="book-cover-image"
+                    loading="lazy"
+                  >
+                <% } else { %>
+                  <span class="book-icon">📚</span>
+                <% } %>
+              </div>
+
+              <div class="book-info">
+                <span class="book-category"><%= book.category %></span>
+                <h3><%= book.title %></h3>
+                <p class="book-author">By <%= book.author %></p>
+
+                <div class="book-bottom">
+                  <strong>₹<%= book.price %></strong>
+                  <span class="stock-label">
+                    <%= book.stock > 0 ? "In Stock" : "Out of Stock" %>
+                  </span>
+                </div>
+
+                <a href="/books/<%= book._id %>" class="view-book-btn">
+                  View Details →
+                </a>
+
+                <!-- Delete Book -->
+                <form
+                  action="/books/<%= book._id %>/delete"
+                  method="POST"
+                  class="delete-book-form"
+                  onsubmit="return confirm('Are you sure you want to delete this book?')"
+                >
+                  <button type="submit" class="delete-book-btn">
+                    Delete Book
+                  </button>
+                </form>
+
+                <% if (currentUser && currentUser.role === "admin") { %>
+                  <div class="admin-actions">
+                    <a href="/books/<%= book._id %>/edit">Edit Book</a>
+                  </div>
+                <% } %>
+
+              </div>
+            </article>
+          <% }) %>
+        </div>
+
+      <% } else { %>
+        <div class="empty-books">
+          <div>📖</div>
+          <h3>No books found</h3>
+          <p>
+            <%= search
+              ? "Try another title, author or category."
+              : "Our collection is waiting for its first book." %>
+          </p>
+          <a href="/books/add" class="add-book-btn">+ Add Your First Book</a>
+        </div>
+      <% } %>
+    </section>
+
+  </main>
+
+  <footer class="books-footer">
+    © 2026 BookStore. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

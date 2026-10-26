@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Details | BookStore</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+      <a href="/books/add">Add Book</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>Book Details</h1>
+
+    <div class="card detail-card">
+      <h2><%= book.title %></h2>
+
+      <p><strong>Author:</strong> <%= book.author %></p>
+      <p><strong>Category:</strong> <%= book.category %></p>
+      <p><strong>Price:</strong> ₹<%= book.price %></p>
+      <p><strong>Stock:</strong> <%= book.stock %></p>
+      <p><strong>Description:</strong>
+        <%= book.description || "No description available" %>
+      </p>
+
+      <a href="/books/<%= book._id %>/edit" class="btn">
+        Edit Book
+      </a>
+
+      <a href="/books" class="btn secondary">
+        Back to Books
+      </a>
+    </div>
+  </main>
+
+  <footer style="text-align:center; padding:25px;">
+    <p>© 2026 BookStore. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Book | BookStore</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+      <% if (currentUser) { %>
+        <span>Welcome, <%= currentUser.name %></span>
+        <form action="/logout" method="POST" style="display:inline">
+          <button type="submit">Logout</button>
+        </form>
+      <% } else { %>
+        <a href="/login">Login</a>
+        <a href="/signup">Signup</a>
+      <% } %>
+    </div>
+  </nav>
+
+  <main class="edit-book-page">
+    <div class="edit-book-card">
+      <div class="edit-book-heading">
+        <span class="eyebrow">BOOKSTORE MANAGEMENT</span>
+        <h1>Edit Book</h1>
+        <p>Update your book information below.</p>
+      </div>
+
+      <% if (typeof error !== "undefined" && error) { %>
+        <div class="edit-error"><%= error %></div>
+      <% } %>
+
+      <form action="/books/<%= book._id %>/edit" method="POST"
+            class="edit-book-form">
+
+        <div class="form-group">
+          <label for="title">Book Title</label>
+          <input id="title" type="text" name="title"
+                 value="<%= book.title %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input id="author" type="text" name="author"
+                 value="<%= book.author %>" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Category</label>
+          <input id="category" type="text" name="category"
+                 value="<%= book.category %>" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="price">Price (₹)</label>
+            <input id="price" type="number" name="price"
+                   value="<%= book.price %>" min="0"
+                   step="0.01" required>
+          </div>
+
+          <div class="form-group">
+            <label for="stock">Stock Quantity</label>
+            <input id="stock" type="number" name="stock"
+                   value="<%= book.stock %>" min="0"
+                   step="1" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description"
+                    rows="5"><%= book.description || "" %></textarea>
+        </div>
+
+        <div class="edit-form-actions">
+          <button type="submit" class="edit-update-btn">
+            Save Changes
+          </button>
+          <a href="/books" class="edit-cancel-btn">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="books-footer">
+    © 2026 BookStore. All Rights Reserved.
+  </footer>
+
+</body>
+</html>

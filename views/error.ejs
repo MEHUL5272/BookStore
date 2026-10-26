@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error | BookStore</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="logo">BookStore</a>
+    <div>
+      <a href="/">Home</a>
+      <a href="/books">All Books</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="card">
+      <h1>Oops! Something went wrong.</h1>
+
+      <p class="error">
+        <%= message || "An unexpected error occurred." %>
+      </p>
+
+      <a href="/" class="btn">Go to Home</a>
+      <a href="/books" class="btn secondary">View All Books</a>
+    </div>
+  </main>
+
+</body>
+</html>
